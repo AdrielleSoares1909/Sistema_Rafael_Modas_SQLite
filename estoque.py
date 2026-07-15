@@ -1,5 +1,7 @@
 
 
+from database import cadastrar_roupa
+
 def cadastrar_roupas(roupas):
 
     nome = input("Digite o nome da peça de roupa a ser cadastrada: ")
@@ -15,7 +17,7 @@ def cadastrar_roupas(roupas):
         "tamanho": tamanho
     }
 
-    roupas.append(roupa) #Alterar a lista
+    cadastrar_roupa(nome, preco, estoque, tamanho) # database
 
     
 

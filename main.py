@@ -61,6 +61,7 @@ from arquivos import salvar_arquivo
 from arquivos import carregar_arquivo
 from arquivos import salvar_historico
 from arquivos import carregar_historico
+from database import criar_tabela
 
 roupas = []
 
@@ -68,9 +69,13 @@ vendas = []
 
 opcao = "0"
 
+
+
 carregar_arquivo(roupas)
 carregar_historico(vendas)
 
+
+criar_tabela()
 
 while opcao != "10":
 
