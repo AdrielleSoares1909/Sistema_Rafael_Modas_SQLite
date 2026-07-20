@@ -75,6 +75,7 @@ carregar_arquivo(roupas)
 carregar_historico(vendas)
 
 
+
 criar_tabela()
 
 while opcao != "10":
@@ -100,7 +101,7 @@ while opcao != "10":
 
     elif opcao == "2":
 
-        listar_roupas(roupas)
+        listar_roupas()
      
     
     elif opcao == "3":

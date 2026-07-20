@@ -59,4 +59,20 @@ def cadastrar_roupa(nome, preco, estoque, tamanho):
 
     conexao.commit()
     conexao.close()
+
+
+def listar_roupas_db(): # busca no banco.
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+
+        SELECT * FROM roupas
+
+    """)
+
+    roupas = cursor.fetchall()
     
+    conexao.close()
+    return roupas

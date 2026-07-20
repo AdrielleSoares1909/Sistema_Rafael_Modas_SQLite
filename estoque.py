@@ -1,6 +1,7 @@
 
 
 from database import cadastrar_roupa
+from database import listar_roupas_db
 
 def cadastrar_roupas(roupas):
 
@@ -21,7 +22,9 @@ def cadastrar_roupas(roupas):
 
     
 
-def listar_roupas(roupas):
+def listar_roupas(): # mostra na tela.
+
+    roupas =  listar_roupas_db()
 
     if not roupas:
 
@@ -29,13 +32,13 @@ def listar_roupas(roupas):
         return # usando para sair da função
 
     for roupa in roupas:
-        print("-------------------")
-        print(f"Nome: {roupa['nome']}")
-        print(f"Preço: R${roupa['preco']}")
-        print(f"Estoque: {roupa['estoque']}")
-        print(f"Tamanho: {roupa['tamanho']}")
-        print("-------------------")
+        print(f"ID: {roupa[0]}")
+        print(f"Nome: {roupa[1]}")
+        print(f"Preço: R$ {roupa[2]:.2f}")
+        print(f"Estoque: {roupa[3]}")
+        print(f"Tamanho: {roupa[4]}")
 
+    
 
 def buscar_roupa(roupas):
 
