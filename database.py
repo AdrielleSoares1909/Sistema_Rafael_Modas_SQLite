@@ -76,3 +76,33 @@ def listar_roupas_db(): # busca no banco.
     
     conexao.close()
     return roupas
+
+
+def buscar_roupa_db(nome, tamanho):
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+
+        SELECT * FROM roupas
+
+        WHERE nome = ?
+
+        AND tamanho = ? 
+                   
+    """,
+
+        (nome, tamanho)                    
+
+   )
+
+    roupa = cursor.fetchone()
+
+   
+
+    conexao.close()
+    return roupa
+    
+
+

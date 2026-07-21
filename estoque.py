@@ -2,13 +2,14 @@
 
 from database import cadastrar_roupa
 from database import listar_roupas_db
+from database import buscar_roupa_db
 
 def cadastrar_roupas(roupas):
 
-    nome = input("Digite o nome da peça de roupa a ser cadastrada: ")
+    nome = input("Digite o nome da peça de roupa a ser cadastrada: ").strip().lower()
     preco = float(input("Digite o preço da peca de roupa a ser cadastrada: "))
     estoque = int(input("Digite a quantidade em estoque disponivel : "))
-    tamanho = input("Digite o tamanho da peca de roupa a ser cadastrada: ")
+    tamanho = input("Digite o tamanho da peca de roupa a ser cadastrada: ").strip().lower()
 
     roupa = {
 
@@ -40,29 +41,29 @@ def listar_roupas(): # mostra na tela.
 
     
 
-def buscar_roupa(roupas):
+def buscar_roupa():
 
-    localizar_roupa = input("Qual roupa deseja localizar:  ")
+    localizar_roupa = input("Qual roupa deseja localizar:  ").strip().lower()
 
-    localizar_tamanho = input("Digite o tamanho da roupa a ser localizada: ")
+    localizar_tamanho = input("Digite o tamanho da roupa a ser localizada: ").strip().lower()
 
-    encontrei_roupa = False
+    
 
-    for roupa in roupas:
+    roupa = buscar_roupa_db(localizar_roupa ,localizar_tamanho)
 
-        if roupa["nome"]  == localizar_roupa and roupa["tamanho"] == localizar_tamanho.strip().lower():
+    if roupa == None:
 
-            encontrei_roupa = True
-
-            print(f"Nome: {roupa['nome']}")
-            print(f"Preço: R${roupa['preco']}")
-            print(f"Estoque: {roupa['estoque']}")
-            print(f"Tamanho: {roupa['tamanho']}")
-
-    if not encontrei_roupa:
         print("ROUPA NÃO LOCALIZADA NO SISTEMA!")
+    
+    else:
+        print(f"ID: {roupa[0]}")
+        print(f"Nome: {roupa[1]}")
+        print(f"Preço: R$ {roupa[2]:.2f}")
+        print(f"Estoque: {roupa[3]}")
+        print(f"Tamanho: {roupa[4]}")
 
-
+            
+    
 def encontrar_roupa(roupas):
 
 

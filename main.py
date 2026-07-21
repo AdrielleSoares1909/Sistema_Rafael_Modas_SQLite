@@ -106,7 +106,7 @@ while opcao != "10":
     
     elif opcao == "3":
 
-        buscar_roupa(roupas)
+        buscar_roupa()
         
 
     elif opcao == "4":
