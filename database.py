@@ -104,5 +104,37 @@ def buscar_roupa_db(nome, tamanho):
     conexao.close()
     return roupa
     
+def alterar_preco_db(nome, tamanho, preco):
 
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
 
+    print(f"Nome recebido: {nome}")
+    print(f"Tamanho recebido: {tamanho}")
+    print(f"Preço recebido: {preco}")
+
+    cursor.execute("""
+
+        UPDATE  roupas
+                   
+        SET preco = ?
+
+        WHERE nome = ?
+
+        AND tamanho = ? 
+                   
+    """,
+
+        (preco, nome, tamanho)                    
+
+   )
+    
+    print("Rowcount:", cursor.rowcount)
+    conexao.commit()
+   
+
+    linhas_alteradas = cursor.rowcount
+
+    conexao.close()
+
+    return linhas_alteradas

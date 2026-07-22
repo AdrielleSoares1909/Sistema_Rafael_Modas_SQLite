@@ -116,7 +116,7 @@ while opcao != "10":
 
     elif opcao == "5":
 
-        alterar_preco(roupas)
+        alterar_preco()
         salvar_arquivo(roupas)
 
     elif opcao == "6":

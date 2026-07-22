@@ -3,6 +3,7 @@
 from database import cadastrar_roupa
 from database import listar_roupas_db
 from database import buscar_roupa_db
+from database import alterar_preco_db
 
 def cadastrar_roupas(roupas):
 
@@ -122,7 +123,7 @@ def remover_roupa(roupas):
         print("ROUPA NÃO ENCONTRADA!")
 
 
-def alterar_preco(roupas):
+def alterar_preco():
 
     alterar_roupa = input("Qual roupa deseja alterar no sistema: ")
 
@@ -130,24 +131,22 @@ def alterar_preco(roupas):
 
     novo_preco = float(input("Qual sera o novo preco a ser cadastrado no sistema: "))
 
-    roupa_encontrada = False
+    linhas = alterar_preco_db(alterar_roupa, alterar_tamanho, novo_preco)
 
-    for roupa in roupas:
+    if linhas == 0:
 
-        if roupa["nome"] == alterar_roupa and roupa["tamanho"] == alterar_tamanho.strip().lower():
+        print("ROUPA NÃO ENCONTRADA")
 
-                roupa_encontrada = True
+    else:
+        
+        print("PREÇO ALTERADO COM SUCESSO")
 
-                roupa["preco"] = novo_preco #Alterar um item da lista
-
-                print("PRECO ATUALIZADO NO  SISTEMA COM SUCESSO.")
 
                 
 
-                return
+                
     
-    if not roupa_encontrada:
-        print("ROUPA NÃO ENCONTRADA!")
+    
 
 def valor_total_estoque(roupas):
 
