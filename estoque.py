@@ -4,6 +4,7 @@ from database import cadastrar_roupa
 from database import listar_roupas_db
 from database import buscar_roupa_db
 from database import alterar_preco_db
+from database import deletar_roupa_db
 
 def cadastrar_roupas(roupas):
 
@@ -97,30 +98,21 @@ def encontrar_roupa(roupas):
 
 
 
-def remover_roupa(roupas):
+def remover_roupa():
 
     excluir_roupa = input("Qual roupa deseja excluir do sistema: ")
 
     excluir_tamanho = input("Qual tamanho  deseja excluir do sistema: ")
 
-    roupa_encontrada = False
+    linhas = deletar_roupa_db(excluir_roupa, excluir_tamanho)
 
-    for roupa in roupas:
-
-        if roupa["nome"] == excluir_roupa and roupa["tamanho"] == excluir_tamanho.strip().lower():
-
-            roupa_encontrada = True
-
-            roupas.remove(roupa) #Alterar a lista
-
-            print("ROUPA EXCLUIDA DO SISTEMA COM SUCESSO.")
-
-            
-
-            return
+    if linhas == 0:
     
-    if not roupa_encontrada:
-        print("ROUPA NÃO ENCONTRADA!")
+        print("ROUPA NÃO ENCONTRADA")
+    
+    else:
+            
+        print("ROUPA REMOVIDA COM SUCESSO")
 
 
 def alterar_preco():
@@ -140,13 +132,8 @@ def alterar_preco():
     else:
         
         print("PREÇO ALTERADO COM SUCESSO")
+            
 
-
-                
-
-                
-    
-    
 
 def valor_total_estoque(roupas):
 

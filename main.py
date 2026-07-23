@@ -111,7 +111,7 @@ while opcao != "10":
 
     elif opcao == "4":
 
-        remover_roupa(roupas)
+        remover_roupa()
         salvar_arquivo(roupas)
 
     elif opcao == "5":

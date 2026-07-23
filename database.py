@@ -109,9 +109,7 @@ def alterar_preco_db(nome, tamanho, preco):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
-    print(f"Nome recebido: {nome}")
-    print(f"Tamanho recebido: {tamanho}")
-    print(f"Preço recebido: {preco}")
+    
 
     cursor.execute("""
 
@@ -129,7 +127,7 @@ def alterar_preco_db(nome, tamanho, preco):
 
    )
     
-    print("Rowcount:", cursor.rowcount)
+    
     conexao.commit()
    
 
@@ -137,4 +135,34 @@ def alterar_preco_db(nome, tamanho, preco):
 
     conexao.close()
 
+    return linhas_alteradas
+
+def deletar_roupa_db(nome, tamanho):
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    
+        DELETE FROM  roupas
+                       
+        WHERE nome = ?
+    
+        AND tamanho = ? 
+                       
+        """,
+    
+        (nome, tamanho)                    
+    
+       )
+        
+    
+
+    conexao.commit()
+       
+    
+    linhas_alteradas = cursor.rowcount
+    
+    conexao.close()
+    
     return linhas_alteradas
