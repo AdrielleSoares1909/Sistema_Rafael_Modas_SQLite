@@ -1,50 +1,73 @@
 
+from database import buscar_roupa_db
+from database import atualizar_estoque_db
+from database import registrar_venda_db
 
 
 
-def registrar_venda(roupas, vendas):
+
+
+def registrar_venda():
+
 
     venda_roupa = input("Qual item do estoque foi vendido: ")
 
     venda_tamanho = input("Qual tamanho do item  do estoque foi vendido: ")
 
-    quantidade_vendida = int(input("Qual quantidade  do item  do estoque foi vendido: "))
+    roupa = buscar_roupa_db(venda_roupa, venda_tamanho)
+
+    estoque = roupa[3]
+    preco = roupa[2]
+    nome = roupa[1]
+    tamanho = roupa[4]
+
+    if roupa is None:
+
+        print("ROUPA NÃO LOCALIZADA NO SISTEMA!")
+
+        return
 
     
+    quantidade_vendida = int(input("Qual quantidade  do item  do estoque foi vendido: "))
 
-    roupa_encontrada = False
+    if estoque < quantidade_vendida:
+            print(f"ESTOQUE INSUFICIENTE! Disponível: {estoque} unidade(s).")
+            return
 
-    for roupa in roupas:
+    if estoque >= quantidade_vendida:
 
+        novo_estoque = estoque - quantidade_vendida
         
+        atualizar_estoque_db(nome, tamanho, novo_estoque)
 
-        if roupa["nome"] == venda_roupa and roupa["tamanho"] == venda_tamanho.strip().lower():
+    nome_cliente = input("Digite o nome do cliente: ")
 
-                roupa_encontrada = True
+    data_venda = input("Digite a data da venda: ")
 
-                if roupa["estoque"] >= quantidade_vendida:
-
-                    nome_do_cliente = input("Qual o nome do cliente: ")
-
-                    data_da_venda = input("Qual a data da venda: ")
-
-                    roupa["estoque"] = roupa["estoque"] - quantidade_vendida
-
-                    
-                    historico_vendas(vendas,roupa,nome_do_cliente,data_da_venda,quantidade_vendida)
-
-                    print("Compra realizada com sucesso.")
-
-                else:
-
-                    print("QUANTIDADE INDISPONIVEL!!!")
-                
-                
-
-                return
+    valor_total =  preco * quantidade_vendida
         
-    if not roupa_encontrada:
-        print("ROUPA NÃO ENCONTRADA!")
+    venda = registrar_venda_db(
+        nome,
+        tamanho,
+        quantidade_vendida,
+        preco,
+        valor_total,
+        nome_cliente,
+        data_venda
+    )
+
+    print("COMPRA REALIZADA COM SUCESSO!")
+
+   
+
+
+
+
+           
+
+                
+        
+    
 
 
 def historico_vendas(vendas,roupa,nome_do_cliente,data_da_venda,quantidade_vendida):

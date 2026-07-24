@@ -21,7 +21,7 @@ def criar_conexao():
     conexao = sqlite3.connect("app.db")
     return conexao
 
-def criar_tabela():
+def criar_tabela_roupas():
 
     conexao = criar_conexao()
     cursor = conexao.cursor()
@@ -33,6 +33,30 @@ def criar_tabela():
         preco REAL NOT NULL,
         estoque INTEGER NOT NULL,
         tamanho TEXT NOT NULL
+    )
+    """)
+
+    conexao.commit()
+    conexao.close()
+
+
+def criar_tabela_vendas():
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+   
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS vendas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        tamanho TEXT NOT NULL,
+        quantidade_vendida INTEGER NOT NULL,
+        preco_unitario REAL NOT NULL,
+        valor_total REAL NOT NULL,
+        nome_cliente TEXT NOT NULL,
+        data_venda TEXT NOT NULL
     )
     """)
 
@@ -158,6 +182,67 @@ def deletar_roupa_db(nome, tamanho):
         
     
 
+    conexao.commit()
+       
+    
+    linhas_alteradas = cursor.rowcount
+    
+    conexao.close()
+    
+    return linhas_alteradas
+
+
+def registrar_venda_db(
+        nome,
+        tamanho,
+        quantidade_vendida,
+        preco_unitario,
+        valor_total,
+        nome_cliente,
+        data_venda
+    ):
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+                       
+        INSERT INTO  vendas (nome,tamanho,quantidade_vendida,preco_unitario,valor_total,nome_cliente,data_venda)
+                       
+        VALUES (?, ?, ?, ?, ?, ?, ?) 
+                       
+        """,
+        (nome, tamanho, quantidade_vendida, preco_unitario,valor_total,nome_cliente,data_venda)
+        
+        ) 
+
+    conexao.commit()
+    conexao.close()
+
+def atualizar_estoque_db(nome, tamanho, novo_estoque):
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+    
+        
+    
+    cursor.execute("""
+    
+        UPDATE  roupas
+                       
+        SET estoque = ?
+
+        WHERE nome = ?
+    
+        AND tamanho = ? 
+                       
+        """,
+    
+            (novo_estoque, nome, tamanho)   
+    
+       )
+        
+        
     conexao.commit()
        
     
