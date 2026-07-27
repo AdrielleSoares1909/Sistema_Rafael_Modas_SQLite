@@ -251,3 +251,20 @@ def atualizar_estoque_db(nome, tamanho, novo_estoque):
     conexao.close()
     
     return linhas_alteradas
+
+
+def historico_vendas_db():
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+    
+    cursor.execute("""
+    
+        SELECT * FROM vendas
+    
+    """)
+    
+    vendas = cursor.fetchall()
+        
+    conexao.close()
+    return vendas

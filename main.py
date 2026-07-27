@@ -55,7 +55,6 @@ from estoque import remover_roupa
 from estoque import alterar_preco
 from estoque import valor_total_estoque
 from vendas import registrar_venda
-from vendas import historico_vendas
 from vendas import listar_historico_vendas
 from arquivos import salvar_arquivo
 from arquivos import carregar_arquivo
@@ -134,7 +133,7 @@ while opcao != "10":
 
     elif opcao == "8":
 
-        listar_historico_vendas(vendas)
+        listar_historico_vendas()
         
         
 
