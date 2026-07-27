@@ -5,6 +5,7 @@ from database import listar_roupas_db
 from database import buscar_roupa_db
 from database import alterar_preco_db
 from database import deletar_roupa_db
+from database import valor_total_estoque_db
 
 def cadastrar_roupas(roupas):
 
@@ -135,12 +136,11 @@ def alterar_preco():
             
 
 
-def valor_total_estoque(roupas):
+def valor_total_estoque():
 
-    total_estoque = 0
-
-    for roupa in roupas:
-
-        total_estoque += roupa["estoque"] * roupa["preco"] 
+    total_estoque = valor_total_estoque_db()
 
     print(f"Valor total do estoque: R$ {total_estoque:.2f}")
+    
+
+    

@@ -129,7 +129,7 @@ while opcao != "10":
 
     elif opcao == "7":
 
-        valor_total_estoque(roupas)
+        valor_total_estoque()
 
     elif opcao == "8":
 

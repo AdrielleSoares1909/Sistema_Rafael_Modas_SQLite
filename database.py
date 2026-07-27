@@ -268,3 +268,25 @@ def historico_vendas_db():
         
     conexao.close()
     return vendas
+
+
+
+def valor_total_estoque_db():
+
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+        
+    cursor.execute("""
+        
+        SELECT SUM(preco * estoque)
+
+        FROM roupas
+
+        
+        
+    """)
+        
+    total = cursor.fetchone()
+            
+    conexao.close()
+    return total[0]
