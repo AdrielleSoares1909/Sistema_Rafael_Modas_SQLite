@@ -1,117 +1,187 @@
-📦 Sistema de Estoque - Rafael Modas
-----
+# 🛍️ Sistema de Controle de Estoque - Rafael Modas
 
-📖 Sobre o projeto
+## 📖 Sobre o projeto
 
+O **Sistema de Controle de Estoque - Rafael Modas** foi desenvolvido com o objetivo de simular a gestão de uma pequena loja de roupas. O projeto nasceu inspirado na realidade da minha própria loja, buscando resolver tarefas comuns do dia a dia, como cadastro de produtos, controle de estoque, registro de vendas e acompanhamento do histórico de vendas.
 
+Durante o desenvolvimento, o projeto evoluiu significativamente. Inicialmente os dados eram armazenados em memória e posteriormente em arquivos `.txt`. Nesta versão, toda a persistência foi migrada para **SQLite**, aproximando o sistema de uma aplicação utilizada no mercado.
 
-Este projeto foi desenvolvido durante meus estudos em Python com o objetivo de praticar programação através de um problema real do meu dia a dia.
+Além de atender às necessidades da loja, este projeto faz parte da minha jornada de aprendizado em desenvolvimento Backend com Python.
 
-Sou proprietário da Rafael Modas, uma loja de roupas localizada em minha residência, e decidi transformar uma necessidade da minha rotina em um projeto de software.
+---
 
-O sistema simula o controle de estoque da loja, permitindo cadastrar produtos, consultar informações, registrar vendas e acompanhar o valor total do estoque.
+# 🚀 Tecnologias utilizadas
 
-Além de servir como prática de programação, este projeto representa minha busca por automatizar processos do meu próprio negócio.
+* Python 3
+* SQLite
+* SQL
+* VS Code
+* Git
+* GitHub
 
------------
-# Objetivo
+---
 
-Desenvolver um sistema de estoque utilizando apenas Python, aplicando conceitos fundamentais da linguagem como:
+# 🏗️ Arquitetura do projeto
 
-* Variáveis
-* Listas
-* Dicionários
-* Estruturas de decisão
-* Estruturas de repetição
+O projeto foi organizado em camadas para facilitar a manutenção e reutilização do código.
+
+```text
+Sistema_Rafael_Modas_SQLite/
+
+│
+├── main.py          # Menu principal da aplicação
+├── estoque.py       # Regras de negócio relacionadas ao estoque
+├── vendas.py        # Regras de negócio das vendas
+├── database.py      # Comunicação com o banco SQLite
+├── app.db           # Banco de dados SQLite
+└── README.md
+```
+
+Essa separação permite que cada arquivo tenha uma responsabilidade específica, seguindo boas práticas utilizadas em projetos profissionais.
+
+---
+
+# 💾 Banco de Dados
+
+O sistema utiliza o **SQLite** como banco de dados relacional.
+
+Foram criadas duas tabelas:
+
+## Tabela `roupas`
+
+Armazena todos os produtos cadastrados.
+
+Campos:
+
+* ID
+* Nome
+* Preço
+* Estoque
+* Tamanho
+
+---
+
+## Tabela `vendas`
+
+Responsável por armazenar todo o histórico das vendas realizadas.
+
+Campos:
+
+* ID
+* Nome do produto
+* Tamanho
+* Quantidade vendida
+* Preço unitário
+* Valor total da venda
+* Nome do cliente
+* Data da venda
+
+---
+
+# ✅ Funcionalidades
+
+O sistema possui as seguintes funcionalidades:
+
+### 📦 Gerenciamento de Estoque
+
+* Cadastro de roupas
+* Listagem de todas as roupas
+* Busca por nome e tamanho
+* Alteração de preço
+* Remoção de produtos
+
+---
+
+### 🛒 Controle de Vendas
+
+* Registro de vendas
+* Atualização automática do estoque
+* Validação de estoque disponível
+* Cálculo automático do valor da venda
+* Registro do cliente
+* Registro da data da venda
+
+---
+
+### 📊 Relatórios
+
+* Histórico completo de vendas
+* Cálculo do valor total do estoque utilizando SQL (`SUM`)
+
+---
+
+# 📚 Conceitos praticados
+
+Durante o desenvolvimento deste projeto foram aplicados diversos conceitos importantes de programação e banco de dados.
+
+### Python
+
 * Funções
-* Organização de código
+* Modularização
+* Organização em camadas
+* Condicionais
+* Laços de repetição
+* Tratamento de retorno de funções
+* Manipulação de tuplas
 
-------- 
+### SQL
 
-  🚀 Funcionalidades
+* CREATE TABLE
+* INSERT
+* SELECT
+* UPDATE
+* DELETE
+* WHERE
+* SUM
+* FETCHONE
+* FETCHALL
 
-Atualmente o sistema permite:
+### Banco de Dados
 
-✅ Cadastrar roupas
+* SQLite
+* Persistência de dados
+* CRUD completo
+* Relacionamento entre regras de negócio e banco de dados
 
-✅ Listar produtos cadastrados
+---
 
-✅ Buscar uma roupa por nome e tamanho
+# 🎯 Objetivo do projeto
 
-✅ Remover produtos
+Mais do que desenvolver um sistema funcional, este projeto teve como objetivo colocar em prática conceitos fundamentais de desenvolvimento Backend.
 
-✅ Alterar preço
+Ao longo do desenvolvimento foram implementadas melhorias como:
 
-✅ Registrar venda
+* Migração do armazenamento em memória para SQLite;
+* Separação entre regras de negócio e acesso ao banco de dados;
+* Reutilização de funções;
+* Organização do código em módulos;
+* Validação das operações de estoque;
+* Implementação de um fluxo completo de vendas.
 
-✅ Calcular o valor total do estoque
+---
 
-----
+# 📈 Próximos passos
 
-🖥️ Tecnologias utilizadas
+O projeto continuará evoluindo com novas funcionalidades.
 
-Python 3
+Planejamento das próximas versões:
 
--------
+* API REST utilizando FastAPI;
+* SQLAlchemy como ORM;
+* Validação de dados com Pydantic;
+* Documentação automática com Swagger;
+* Integração com PostgreSQL;
+* Autenticação de usuários;
+* Controle de permissões.
 
-📂 Estrutura dos produtos
+---
 
-Cada roupa é armazenada como um dicionário:
 
-{
-    "nome": "Vestido",
-    "preco": 129.90,
-    "estoque": 5,
-    "tamanho": "M"
-}
+# 👩‍💻 Desenvolvedora
 
-Todos os produtos ficam armazenados dentro de uma lista durante a execução do programa.
+**Adrielle Soares**
 
--------
+Este projeto faz parte do meu processo de aprendizado em Desenvolvimento Backend com Python e representa minha evolução prática na construção de aplicações utilizando banco de dados e organização de código em camadas.
 
-📚 O que aprendi neste projeto
+Estou constantemente estudando e aprimorando meus conhecimentos para atuar como Desenvolvedora Backend Python.
 
-Durante o desenvolvimento pratiquei diversos conceitos importantes de Python, como:
-
-* criação de funções
-* manipulação de listas
-* manipulação de dicionários
-* uso de for
-* uso de if
-* utilização de return e break
-* CRUD em memória
-* organização de projetos.
-* rafatoração do projeto ✅ Módulos ✅ Imports ✅ Passagem de parâmetros ✅ Eliminar variáveis globais
-* ✅ Separação de responsabilidades > 
-  - Cada arquivo tem uma função clara:
-
-      main.py → coordena o programa.
-      estoque.py → cuida das roupas.
-      vendas.py → cuida das vendas.
-      arquivos.py → salva e carrega dados.
-      
---------
-
-💡 Motivação 
-
-Este projeto possui um significado especial para mim porque foi inspirado na minha própria realidade.
-
-Ao invés de criar um sistema genérico, resolvi desenvolver um controle de estoque baseado na rotina da minha loja, a Rafael Modas.
-
-Meu objetivo é continuar evoluindo este projeto à medida que adquiro novos conhecimentos em Python, transformando-o futuramente em um sistema completo para utilização no meu negócio.
-
------
-
-👨‍💻 Autor
-
-Adrielle Soares
-
-Projeto desenvolvido como parte dos estudos em Python, aplicando os conhecimentos adquiridos em um cenário real de gerenciamento de estoque para a loja Rafael Modas.
-
--------
-**** Minha Jornada ****
-
-* "Iniciei este projeto enquanto aprendia Python do zero. Em vez de desenvolver um sistema fictício, escolhi resolver um problema real da minha loja, a Rafael Modas.
-Cada nova funcionalidade representa um novo conceito aprendido. Meu objetivo é evoluir este sistema
-até transformá-lo em uma aplicação completa, com banco de dados,
-interface gráfica e recursos que possam ser utilizados no dia a dia do meu negócio."
