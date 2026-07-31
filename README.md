@@ -1,187 +1,131 @@
-# 🛍️ Sistema de Controle de Estoque - Rafael Modas
+🛍️ Sistema de Controle de Estoque - Rafael Modas
+📖 Sobre o projeto
 
-## 📖 Sobre o projeto
+O Sistema de Controle de Estoque - Rafael Modas é um projeto desenvolvido em Python inspirado na realidade da minha loja de roupas. O objetivo foi criar um sistema para facilitar o gerenciamento de produtos, controle de estoque e registro de vendas.
 
-O **Sistema de Controle de Estoque - Rafael Modas** foi desenvolvido com o objetivo de simular a gestão de uma pequena loja de roupas. O projeto nasceu inspirado na realidade da minha própria loja, buscando resolver tarefas comuns do dia a dia, como cadastro de produtos, controle de estoque, registro de vendas e acompanhamento do histórico de vendas.
+Inicialmente o projeto utilizava arquivos .txt para armazenar os dados. Durante o desenvolvimento, ele foi totalmente migrado para SQLite, proporcionando maior segurança, organização e facilidade de manutenção.
 
-Durante o desenvolvimento, o projeto evoluiu significativamente. Inicialmente os dados eram armazenados em memória e posteriormente em arquivos `.txt`. Nesta versão, toda a persistência foi migrada para **SQLite**, aproximando o sistema de uma aplicação utilizada no mercado.
+Além de servir como ferramenta para gerenciamento de estoque, este projeto representa minha evolução prática no aprendizado de Python, organização de código e banco de dados.
 
-Além de atender às necessidades da loja, este projeto faz parte da minha jornada de aprendizado em desenvolvimento Backend com Python.
+🚀 Tecnologias utilizadas
+Python 3
+SQLite
+SQL
+Módulo sqlite3
+Módulo datetime
 
----
-
-# 🚀 Tecnologias utilizadas
-
-* Python 3
-* SQLite
-* SQL
-* VS Code
-* Git
-* GitHub
-
----
-
-# 🏗️ Arquitetura do projeto
-
-O projeto foi organizado em camadas para facilitar a manutenção e reutilização do código.
-
-```text
+------------------------
+📂 Estrutura do projeto
 Sistema_Rafael_Modas_SQLite/
-
 │
-├── main.py          # Menu principal da aplicação
-├── estoque.py       # Regras de negócio relacionadas ao estoque
-├── vendas.py        # Regras de negócio das vendas
-├── database.py      # Comunicação com o banco SQLite
-├── app.db           # Banco de dados SQLite
+├── main.py                 # Menu principal
+├── database.py             # Operações com o banco de dados
+├── estoque.py              # Regras do estoque
+├── vendas.py               # Registro e histórico de vendas
+├── validacoes.py           # Validação das entradas do usuário
+├── banco.db                # Banco de dados SQLite
 └── README.md
-```
 
-Essa separação permite que cada arquivo tenha uma responsabilidade específica, seguindo boas práticas utilizadas em projetos profissionais.
+-----------------------
+✨ Funcionalidades
 
----
+✅ Cadastro de roupas
+✅ Listagem de produtos
+✅ Busca por nome e tamanho
+✅ Alteração de preço
+✅ Remoção de produtos
+✅ Registro de vendas
+✅ Atualização automática do estoque
+✅ Histórico de vendas
+✅ Cálculo do valor total do estoque
+🔒 Validações implementadas
 
-# 💾 Banco de Dados
+Para deixar o sistema mais robusto, todas as entradas do usuário foram centralizadas no arquivo validacoes.py.
 
-O sistema utiliza o **SQLite** como banco de dados relacional.
+As validações incluem:
+
+Impedir campos vazios;
+Impedir preços menores ou iguais a zero;
+Impedir estoque menor ou igual a zero;
+Impedir quantidade menor ou igual a zero;
+Validar tamanhos permitidos;
+Validar opções do menu;
+Validar datas utilizando datetime;
+Mensagens claras para orientar o usuário quando uma entrada é inválida.
+
+-------------------------
+🗄️ Banco de Dados
+
+O sistema utiliza SQLite para armazenar todas as informações.
 
 Foram criadas duas tabelas:
 
-## Tabela `roupas`
+Roupas
+ID
+Nome
+Preço
+Estoque
+Tamanho
 
-Armazena todos os produtos cadastrados.
+Vendas
+ID
+Nome da roupa
+Tamanho
+Quantidade vendida
+Preço unitário
+Valor total
+Nome do cliente
+Data da venda
+-------------------
 
-Campos:
+🛡️ Tratamento de erros
 
-* ID
-* Nome
-* Preço
-* Estoque
-* Tamanho
+As operações que modificam o banco de dados possuem tratamento de exceções utilizando:
 
----
+try
+except sqlite3.Error
+finally
 
-## Tabela `vendas`
+Isso garante:
 
-Responsável por armazenar todo o histórico das vendas realizadas.
+fechamento correto da conexão;
+mensagens de erro mais claras;
+maior robustez da aplicação.
 
-Campos:
+-----------------------
+📚 Aprendizados
 
-* ID
-* Nome do produto
-* Tamanho
-* Quantidade vendida
-* Preço unitário
-* Valor total da venda
-* Nome do cliente
-* Data da venda
+Durante o desenvolvimento deste projeto, pratiquei:
 
----
+Organização de projetos Python em módulos;
+Manipulação de banco de dados SQLite;
+Operações CRUD;
+Tratamento de exceções;
+Validação de entradas do usuário;
+Separação de responsabilidades entre arquivos;
+Estruturação de código mais limpa e reutilizável.
 
-# ✅ Funcionalidades
+------------------------
+🔄 Evolução do projeto
 
-O sistema possui as seguintes funcionalidades:
+Sistema iniciado utilizando arquivos .txt;
+Migração completa para SQLite;
+Separação das responsabilidades em módulos;
+Implementação de validações centralizadas;
+Tratamento de exceções nas operações com banco de dados;
+Código mais organizado, reutilizável e preparado para futuras evoluções.
 
-### 📦 Gerenciamento de Estoque
+--------------------
+🚀 Próximos passos
 
-* Cadastro de roupas
-* Listagem de todas as roupas
-* Busca por nome e tamanho
-* Alteração de preço
-* Remoção de produtos
+Desenvolver uma API utilizando FastAPI;
+Integrar o sistema com PostgreSQL;
+Criar autenticação de usuários com JWT;
+Desenvolver uma interface web para gerenciamento do estoque.
 
----
+----------------
+👩‍💻 Autora
 
-### 🛒 Controle de Vendas
+Adrielle Soares
 
-* Registro de vendas
-* Atualização automática do estoque
-* Validação de estoque disponível
-* Cálculo automático do valor da venda
-* Registro do cliente
-* Registro da data da venda
-
----
-
-### 📊 Relatórios
-
-* Histórico completo de vendas
-* Cálculo do valor total do estoque utilizando SQL (`SUM`)
-
----
-
-# 📚 Conceitos praticados
-
-Durante o desenvolvimento deste projeto foram aplicados diversos conceitos importantes de programação e banco de dados.
-
-### Python
-
-* Funções
-* Modularização
-* Organização em camadas
-* Condicionais
-* Laços de repetição
-* Tratamento de retorno de funções
-* Manipulação de tuplas
-
-### SQL
-
-* CREATE TABLE
-* INSERT
-* SELECT
-* UPDATE
-* DELETE
-* WHERE
-* SUM
-* FETCHONE
-* FETCHALL
-
-### Banco de Dados
-
-* SQLite
-* Persistência de dados
-* CRUD completo
-* Relacionamento entre regras de negócio e banco de dados
-
----
-
-# 🎯 Objetivo do projeto
-
-Mais do que desenvolver um sistema funcional, este projeto teve como objetivo colocar em prática conceitos fundamentais de desenvolvimento Backend.
-
-Ao longo do desenvolvimento foram implementadas melhorias como:
-
-* Migração do armazenamento em memória para SQLite;
-* Separação entre regras de negócio e acesso ao banco de dados;
-* Reutilização de funções;
-* Organização do código em módulos;
-* Validação das operações de estoque;
-* Implementação de um fluxo completo de vendas.
-
----
-
-# 📈 Próximos passos
-
-O projeto continuará evoluindo com novas funcionalidades.
-
-Planejamento das próximas versões:
-
-* API REST utilizando FastAPI;
-* SQLAlchemy como ORM;
-* Validação de dados com Pydantic;
-* Documentação automática com Swagger;
-* Integração com PostgreSQL;
-* Autenticação de usuários;
-* Controle de permissões.
-
----
-
-
-# 👩‍💻 Desenvolvedora
-
-**Adrielle Soares**
-
-Este projeto faz parte do meu processo de aprendizado em Desenvolvimento Backend com Python e representa minha evolução prática na construção de aplicações utilizando banco de dados e organização de código em camadas.
-
-Estou constantemente estudando e aprimorando meus conhecimentos para atuar como Desenvolvedora Backend Python.
-
+Projeto desenvolvido como parte da minha evolução nos estudos de Python e Back-end, inspirado na rotina da loja Rafael Modas.
