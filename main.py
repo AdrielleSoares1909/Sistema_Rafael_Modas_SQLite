@@ -50,36 +50,23 @@
 from estoque import cadastrar_roupas
 from  estoque import listar_roupas
 from estoque import buscar_roupa
-from estoque import encontrar_roupa
 from estoque import remover_roupa
 from estoque import alterar_preco
 from estoque import valor_total_estoque
 from vendas import registrar_venda
 from vendas import listar_historico_vendas
-from arquivos import salvar_arquivo
-from arquivos import carregar_arquivo
-from arquivos import salvar_historico
-from arquivos import carregar_historico
 from database import criar_tabela_roupas
 from database import criar_tabela_vendas
+from validacoes import ler_opcao
 
-roupas = []
-
-vendas = []
-
-opcao = "0"
-
-
-
-carregar_arquivo(roupas)
-carregar_historico(vendas)
 
 
 
 criar_tabela_roupas()
 criar_tabela_vendas()
 
-while opcao != "10":
+while True:
+    
 
     print("------- MENU --------")
     print("1 = CADASTRAR ROUPA ")
@@ -90,60 +77,53 @@ while opcao != "10":
     print("6 = REGISTRAR VENDA ")
     print("7 = VALOR TOTAL DO ESTOQUE")
     print("8 = LISTAR HISTORICO DE VENDAS ")
-    print("9 = ENCONTRAR ROUPA ")
-    print("10 = SAIR ")
+    print("9 = SAIR ")
 
-    opcao = input("Digite a opcao desejada: ")
+    opcao = ler_opcao()
 
-    if opcao == "1":
+    if opcao == 1:
 
-        cadastrar_roupas(roupas)
-        salvar_arquivo(roupas)
+        cadastrar_roupas()
+       
 
-    elif opcao == "2":
+    elif opcao == 2:
 
         listar_roupas()
      
     
-    elif opcao == "3":
+    elif opcao == 3:
 
         buscar_roupa()
         
 
-    elif opcao == "4":
+    elif opcao == 4:
 
         remover_roupa()
-        salvar_arquivo(roupas)
+        
 
-    elif opcao == "5":
+    elif opcao == 5:
 
         alterar_preco()
-        salvar_arquivo(roupas)
+        
 
-    elif opcao == "6":
+    elif opcao == 6:
 
         registrar_venda()
-        salvar_arquivo(roupas)
-        salvar_historico(vendas)
-
-
-    elif opcao == "7":
+        
+    elif opcao == 7:
 
         valor_total_estoque()
 
-    elif opcao == "8":
+    elif opcao == 8:
 
         listar_historico_vendas()
         
-        
+    elif opcao == 9:
 
-    elif opcao == "9":
+        print("Saindo do sistema!")
+        break
 
-        encontrar_roupa(roupas)
-
-    elif opcao == "10":
-
-        print("Sair do Sistema!")
+   
 
 
 

@@ -3,7 +3,10 @@ from database import buscar_roupa_db
 from database import atualizar_estoque_db
 from database import registrar_venda_db
 from database import historico_vendas_db
-
+from validacoes import ler_tamanho
+from validacoes import ler_quantidade
+from validacoes import ler_nome
+from validacoes import ler_data
 
 
 
@@ -11,29 +14,37 @@ from database import historico_vendas_db
 def registrar_venda():
 
 
-    venda_roupa = input("Qual item do estoque foi vendido: ")
+    venda_roupa  = ler_nome("Digite o nome da roupa: ")
 
-    venda_tamanho = input("Qual tamanho do item  do estoque foi vendido: ")
+    venda_tamanho = ler_tamanho()
 
+    
     roupa = buscar_roupa_db(venda_roupa, venda_tamanho)
+
+
+    
+
+    if roupa is None:
+    
+        print("ROUPA NÃO LOCALIZADA NO SISTEMA!")
+    
+        return
 
     estoque = roupa[3]
     preco = roupa[2]
     nome = roupa[1]
     tamanho = roupa[4]
 
-    if roupa is None:
-
-        print("ROUPA NÃO LOCALIZADA NO SISTEMA!")
-
-        return
+    
 
     
-    quantidade_vendida = int(input("Qual quantidade  do item  do estoque foi vendido: "))
+    quantidade_vendida = ler_quantidade()
 
     if estoque < quantidade_vendida:
-            print(f"ESTOQUE INSUFICIENTE! Disponível: {estoque} unidade(s).")
-            return
+
+        print(f"ESTOQUE INSUFICIENTE! Disponível: {estoque} unidade(s).")
+
+        return
 
     if estoque >= quantidade_vendida:
 
@@ -41,9 +52,9 @@ def registrar_venda():
         
         atualizar_estoque_db(nome, tamanho, novo_estoque)
 
-    nome_cliente = input("Digite o nome do cliente: ")
+    nome_cliente = ler_nome("Digite o nome do cliente: ")
 
-    data_venda = input("Digite a data da venda: ")
+    data_venda = ler_data()
 
     valor_total =  preco * quantidade_vendida
         

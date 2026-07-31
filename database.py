@@ -67,22 +67,38 @@ def criar_tabela_vendas():
 
 def cadastrar_roupa(nome, preco, estoque, tamanho):
 
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
 
-    cursor.execute("""
+    conexao = None
+
+    try:
+
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        cursor.execute("""
                    
-    INSERT INTO  roupas (nome, preco, estoque, tamanho)
+        INSERT INTO  roupas (nome, preco, estoque, tamanho)
                    
-    VALUES (?, ?, ?, ?) 
+        VALUES (?, ?, ?, ?) 
                    
-    """,
-    (nome, preco, estoque, tamanho)
+        """,
+        (nome, preco, estoque, tamanho)
     
-    ) 
+        ) 
 
-    conexao.commit()
-    conexao.close()
+        conexao.commit()
+
+            
+
+    except sqlite3.Error as erro:
+
+        print(f"❌ Erro ao cadastrar roupa: {erro}")
+
+    finally:
+
+        if conexao is not None:
+
+            conexao.close()
 
 
 def listar_roupas_db(): # busca no banco.
@@ -130,66 +146,93 @@ def buscar_roupa_db(nome, tamanho):
     
 def alterar_preco_db(nome, tamanho, preco):
 
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
+    conexao = None
+
+    try:
+
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
 
     
 
-    cursor.execute("""
+        cursor.execute("""
 
-        UPDATE  roupas
+            UPDATE  roupas
                    
-        SET preco = ?
+            SET preco = ?
 
-        WHERE nome = ?
+            WHERE nome = ?
 
-        AND tamanho = ? 
+            AND tamanho = ? 
                    
-    """,
+        """,
 
-        (preco, nome, tamanho)                    
+            (preco, nome, tamanho)                    
 
-   )
+    )
     
     
-    conexao.commit()
+        conexao.commit()
    
 
-    linhas_alteradas = cursor.rowcount
+        linhas_alteradas = cursor.rowcount
 
-    conexao.close()
+        return linhas_alteradas
 
-    return linhas_alteradas
+    except sqlite3.Error as erro:
+         
+        print(f"❌ Erro ao alterar o preço da roupa: {erro}")
+
+        return 0
+
+    finally:
+
+        if conexao is not None:
+
+            conexao.close()
 
 def deletar_roupa_db(nome, tamanho):
 
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
+    conexao = None
 
-    cursor.execute("""
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        cursor.execute("""
     
-        DELETE FROM  roupas
+            DELETE FROM  roupas
                        
-        WHERE nome = ?
+            WHERE nome = ?
     
-        AND tamanho = ? 
+            AND tamanho = ? 
                        
-        """,
+            """,
     
-        (nome, tamanho)                    
+            (nome, tamanho)                    
     
-       )
+        )
         
     
 
-    conexao.commit()
+        conexao.commit()
        
     
-    linhas_alteradas = cursor.rowcount
+        linhas_alteradas = cursor.rowcount
+
+        return linhas_alteradas
     
-    conexao.close()
-    
-    return linhas_alteradas
+    except sqlite3.Error as erro:
+
+        print(f"❌ Erro ao remover roupa: {erro}")
+
+        return 0
+
+    finally:
+
+        if conexao is not None:
+
+            conexao.close()
 
 
 def registrar_venda_db(
@@ -202,55 +245,86 @@ def registrar_venda_db(
         data_venda
     ):
 
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
+    conexao = None
+    
+    try:
 
-    cursor.execute("""
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        cursor.execute("""
                        
-        INSERT INTO  vendas (nome,tamanho,quantidade_vendida,preco_unitario,valor_total,nome_cliente,data_venda)
+            INSERT INTO  vendas (nome,tamanho,quantidade_vendida,preco_unitario,valor_total,nome_cliente,data_venda)
                        
-        VALUES (?, ?, ?, ?, ?, ?, ?) 
+            VALUES (?, ?, ?, ?, ?, ?, ?) 
                        
-        """,
-        (nome, tamanho, quantidade_vendida, preco_unitario,valor_total,nome_cliente,data_venda)
+            """,
+            (nome, tamanho, quantidade_vendida, preco_unitario,valor_total,nome_cliente,data_venda)
         
-        ) 
+            ) 
 
-    conexao.commit()
-    conexao.close()
+        conexao.commit()
+
+
+    except sqlite3.Error as erro:
+        
+            print(f"❌ Erro ao registrar venda: {erro}")
+        
+            return cursor.rowcount
+        
+    finally:
+        
+        if conexao is not None:
+        
+            conexao.close()
+        
 
 def atualizar_estoque_db(nome, tamanho, novo_estoque):
 
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
-    
+    conexao = None
         
-    
-    cursor.execute("""
-    
-        UPDATE  roupas
-                       
-        SET estoque = ?
+    try:
 
-        WHERE nome = ?
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
     
-        AND tamanho = ? 
+        
+    
+        cursor.execute("""
+    
+            UPDATE  roupas
                        
-        """,
+            SET estoque = ?
+
+            WHERE nome = ?
     
-            (novo_estoque, nome, tamanho)   
+            AND tamanho = ? 
+                       
+            """,
     
-       )
+                (novo_estoque, nome, tamanho)   
+    
+        )
         
         
-    conexao.commit()
+        conexao.commit()
        
+        linhas_alteradas = cursor.rowcount
     
-    linhas_alteradas = cursor.rowcount
+        return linhas_alteradas
     
-    conexao.close()
     
-    return linhas_alteradas
+    except sqlite3.Error as erro:
+    
+            print(f"❌ Erro ao atualizar estoque: {erro}")
+    
+            return 0
+    
+    finally:
+    
+        if conexao is not None:
+    
+            conexao.close()
 
 
 def historico_vendas_db():
@@ -289,4 +363,5 @@ def valor_total_estoque_db():
     total = cursor.fetchone()
             
     conexao.close()
-    return total[0]
+    
+    return total[0] if total[0] is not None else 0
